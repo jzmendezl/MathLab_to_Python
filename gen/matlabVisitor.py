@@ -19,6 +19,26 @@ class matlabVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by matlabParser#open_par.
+    def visitOpen_par(self, ctx:matlabParser.Open_parContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by matlabParser#close_par.
+    def visitClose_par(self, ctx:matlabParser.Close_parContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by matlabParser#open_bracket.
+    def visitOpen_bracket(self, ctx:matlabParser.Open_bracketContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by matlabParser#close_bracket.
+    def visitClose_bracket(self, ctx:matlabParser.Close_bracketContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by matlabParser#postfix_expression.
     def visitPostfix_expression(self, ctx:matlabParser.Postfix_expressionContext):
         return self.visitChildren(ctx)
@@ -29,8 +49,23 @@ class matlabVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by matlabParser#colon.
+    def visitColon(self, ctx:matlabParser.ColonContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by matlabParser#semicolon.
+    def visitSemicolon(self, ctx:matlabParser.SemicolonContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by matlabParser#index_expression_list.
     def visitIndex_expression_list(self, ctx:matlabParser.Index_expression_listContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by matlabParser#comma.
+    def visitComma(self, ctx:matlabParser.CommaContext):
         return self.visitChildren(ctx)
 
 
@@ -46,6 +81,81 @@ class matlabVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by matlabParser#unary_operator.
     def visitUnary_operator(self, ctx:matlabParser.Unary_operatorContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by matlabParser#op_sum.
+    def visitOp_sum(self, ctx:matlabParser.Op_sumContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by matlabParser#op_sub.
+    def visitOp_sub(self, ctx:matlabParser.Op_subContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by matlabParser#op_mul.
+    def visitOp_mul(self, ctx:matlabParser.Op_mulContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by matlabParser#op_div.
+    def visitOp_div(self, ctx:matlabParser.Op_divContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by matlabParser#op_not.
+    def visitOp_not(self, ctx:matlabParser.Op_notContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by matlabParser#op_pow.
+    def visitOp_pow(self, ctx:matlabParser.Op_powContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by matlabParser#op_and.
+    def visitOp_and(self, ctx:matlabParser.Op_andContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by matlabParser#op_or.
+    def visitOp_or(self, ctx:matlabParser.Op_orContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by matlabParser#op_doble_backslash.
+    def visitOp_doble_backslash(self, ctx:matlabParser.Op_doble_backslashContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by matlabParser#op_greater.
+    def visitOp_greater(self, ctx:matlabParser.Op_greaterContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by matlabParser#op_less.
+    def visitOp_less(self, ctx:matlabParser.Op_lessContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by matlabParser#op_greater_equal.
+    def visitOp_greater_equal(self, ctx:matlabParser.Op_greater_equalContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by matlabParser#op_less_equal.
+    def visitOp_less_equal(self, ctx:matlabParser.Op_less_equalContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by matlabParser#op_not_equal.
+    def visitOp_not_equal(self, ctx:matlabParser.Op_not_equalContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by matlabParser#op_equal.
+    def visitOp_equal(self, ctx:matlabParser.Op_equalContext):
         return self.visitChildren(ctx)
 
 

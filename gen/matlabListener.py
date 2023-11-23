@@ -26,6 +26,42 @@ class matlabListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by matlabParser#open_par.
+    def enterOpen_par(self, ctx:matlabParser.Open_parContext):
+        pass
+
+    # Exit a parse tree produced by matlabParser#open_par.
+    def exitOpen_par(self, ctx:matlabParser.Open_parContext):
+        pass
+
+
+    # Enter a parse tree produced by matlabParser#close_par.
+    def enterClose_par(self, ctx:matlabParser.Close_parContext):
+        pass
+
+    # Exit a parse tree produced by matlabParser#close_par.
+    def exitClose_par(self, ctx:matlabParser.Close_parContext):
+        pass
+
+
+    # Enter a parse tree produced by matlabParser#open_bracket.
+    def enterOpen_bracket(self, ctx:matlabParser.Open_bracketContext):
+        pass
+
+    # Exit a parse tree produced by matlabParser#open_bracket.
+    def exitOpen_bracket(self, ctx:matlabParser.Open_bracketContext):
+        pass
+
+
+    # Enter a parse tree produced by matlabParser#close_bracket.
+    def enterClose_bracket(self, ctx:matlabParser.Close_bracketContext):
+        pass
+
+    # Exit a parse tree produced by matlabParser#close_bracket.
+    def exitClose_bracket(self, ctx:matlabParser.Close_bracketContext):
+        pass
+
+
     # Enter a parse tree produced by matlabParser#postfix_expression.
     def enterPostfix_expression(self, ctx:matlabParser.Postfix_expressionContext):
         pass
@@ -44,12 +80,39 @@ class matlabListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by matlabParser#colon.
+    def enterColon(self, ctx:matlabParser.ColonContext):
+        pass
+
+    # Exit a parse tree produced by matlabParser#colon.
+    def exitColon(self, ctx:matlabParser.ColonContext):
+        pass
+
+
+    # Enter a parse tree produced by matlabParser#semicolon.
+    def enterSemicolon(self, ctx:matlabParser.SemicolonContext):
+        pass
+
+    # Exit a parse tree produced by matlabParser#semicolon.
+    def exitSemicolon(self, ctx:matlabParser.SemicolonContext):
+        pass
+
+
     # Enter a parse tree produced by matlabParser#index_expression_list.
     def enterIndex_expression_list(self, ctx:matlabParser.Index_expression_listContext):
         pass
 
     # Exit a parse tree produced by matlabParser#index_expression_list.
     def exitIndex_expression_list(self, ctx:matlabParser.Index_expression_listContext):
+        pass
+
+
+    # Enter a parse tree produced by matlabParser#comma.
+    def enterComma(self, ctx:matlabParser.CommaContext):
+        pass
+
+    # Exit a parse tree produced by matlabParser#comma.
+    def exitComma(self, ctx:matlabParser.CommaContext):
         pass
 
 
@@ -77,6 +140,141 @@ class matlabListener(ParseTreeListener):
 
     # Exit a parse tree produced by matlabParser#unary_operator.
     def exitUnary_operator(self, ctx:matlabParser.Unary_operatorContext):
+        pass
+
+
+    # Enter a parse tree produced by matlabParser#op_sum.
+    def enterOp_sum(self, ctx:matlabParser.Op_sumContext):
+        pass
+
+    # Exit a parse tree produced by matlabParser#op_sum.
+    def exitOp_sum(self, ctx:matlabParser.Op_sumContext):
+        pass
+
+
+    # Enter a parse tree produced by matlabParser#op_sub.
+    def enterOp_sub(self, ctx:matlabParser.Op_subContext):
+        pass
+
+    # Exit a parse tree produced by matlabParser#op_sub.
+    def exitOp_sub(self, ctx:matlabParser.Op_subContext):
+        pass
+
+
+    # Enter a parse tree produced by matlabParser#op_mul.
+    def enterOp_mul(self, ctx:matlabParser.Op_mulContext):
+        pass
+
+    # Exit a parse tree produced by matlabParser#op_mul.
+    def exitOp_mul(self, ctx:matlabParser.Op_mulContext):
+        pass
+
+
+    # Enter a parse tree produced by matlabParser#op_div.
+    def enterOp_div(self, ctx:matlabParser.Op_divContext):
+        pass
+
+    # Exit a parse tree produced by matlabParser#op_div.
+    def exitOp_div(self, ctx:matlabParser.Op_divContext):
+        pass
+
+
+    # Enter a parse tree produced by matlabParser#op_not.
+    def enterOp_not(self, ctx:matlabParser.Op_notContext):
+        pass
+
+    # Exit a parse tree produced by matlabParser#op_not.
+    def exitOp_not(self, ctx:matlabParser.Op_notContext):
+        pass
+
+
+    # Enter a parse tree produced by matlabParser#op_pow.
+    def enterOp_pow(self, ctx:matlabParser.Op_powContext):
+        pass
+
+    # Exit a parse tree produced by matlabParser#op_pow.
+    def exitOp_pow(self, ctx:matlabParser.Op_powContext):
+        pass
+
+
+    # Enter a parse tree produced by matlabParser#op_and.
+    def enterOp_and(self, ctx:matlabParser.Op_andContext):
+        pass
+
+    # Exit a parse tree produced by matlabParser#op_and.
+    def exitOp_and(self, ctx:matlabParser.Op_andContext):
+        pass
+
+
+    # Enter a parse tree produced by matlabParser#op_or.
+    def enterOp_or(self, ctx:matlabParser.Op_orContext):
+        pass
+
+    # Exit a parse tree produced by matlabParser#op_or.
+    def exitOp_or(self, ctx:matlabParser.Op_orContext):
+        pass
+
+
+    # Enter a parse tree produced by matlabParser#op_doble_backslash.
+    def enterOp_doble_backslash(self, ctx:matlabParser.Op_doble_backslashContext):
+        pass
+
+    # Exit a parse tree produced by matlabParser#op_doble_backslash.
+    def exitOp_doble_backslash(self, ctx:matlabParser.Op_doble_backslashContext):
+        pass
+
+
+    # Enter a parse tree produced by matlabParser#op_greater.
+    def enterOp_greater(self, ctx:matlabParser.Op_greaterContext):
+        pass
+
+    # Exit a parse tree produced by matlabParser#op_greater.
+    def exitOp_greater(self, ctx:matlabParser.Op_greaterContext):
+        pass
+
+
+    # Enter a parse tree produced by matlabParser#op_less.
+    def enterOp_less(self, ctx:matlabParser.Op_lessContext):
+        pass
+
+    # Exit a parse tree produced by matlabParser#op_less.
+    def exitOp_less(self, ctx:matlabParser.Op_lessContext):
+        pass
+
+
+    # Enter a parse tree produced by matlabParser#op_greater_equal.
+    def enterOp_greater_equal(self, ctx:matlabParser.Op_greater_equalContext):
+        pass
+
+    # Exit a parse tree produced by matlabParser#op_greater_equal.
+    def exitOp_greater_equal(self, ctx:matlabParser.Op_greater_equalContext):
+        pass
+
+
+    # Enter a parse tree produced by matlabParser#op_less_equal.
+    def enterOp_less_equal(self, ctx:matlabParser.Op_less_equalContext):
+        pass
+
+    # Exit a parse tree produced by matlabParser#op_less_equal.
+    def exitOp_less_equal(self, ctx:matlabParser.Op_less_equalContext):
+        pass
+
+
+    # Enter a parse tree produced by matlabParser#op_not_equal.
+    def enterOp_not_equal(self, ctx:matlabParser.Op_not_equalContext):
+        pass
+
+    # Exit a parse tree produced by matlabParser#op_not_equal.
+    def exitOp_not_equal(self, ctx:matlabParser.Op_not_equalContext):
+        pass
+
+
+    # Enter a parse tree produced by matlabParser#op_equal.
+    def enterOp_equal(self, ctx:matlabParser.Op_equalContext):
+        pass
+
+    # Exit a parse tree produced by matlabParser#op_equal.
+    def exitOp_equal(self, ctx:matlabParser.Op_equalContext):
         pass
 
 

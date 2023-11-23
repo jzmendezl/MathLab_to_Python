@@ -39,10 +39,26 @@ primary_expression
    : IDENTIFIER
    | CONSTANT
    | STRING_LITERAL
-   | '(' expression ')'
-   | '[' ']'
-   | '[' array_list ']'
+   | open_par expression close_par
+   | open_bracket close_bracket
+   | open_bracket array_list close_bracket
    ;
+
+open_par
+   : '('
+   ;
+
+close_par
+    : ')'
+    ;
+
+open_bracket
+    : '['
+    ;
+
+close_bracket
+    : ']'
+    ;
 
 postfix_expression
    : primary_expression
@@ -52,17 +68,29 @@ postfix_expression
    ;
 
 index_expression
-   : ':'
+   : colon
    | expression
+   ;
+
+colon
+   : ':'
+   ;
+
+semicolon
+   : ';'
    ;
 
 index_expression_list
    : index_expression
-   | index_expression_list ',' index_expression
+   | index_expression_list comma index_expression
    ;
 
+comma
+    : ','
+    ;
+
 array_expression
-   : IDENTIFIER '(' index_expression_list ')'
+   : IDENTIFIER open_par index_expression_list close_par
    ;
 
 unary_expression
@@ -71,17 +99,78 @@ unary_expression
    ;
 
 unary_operator
-   : '+'
-   | '-'
-   | '~'
+   : op_sum
+   | op_sub
+   | op_not
    ;
+
+op_sum
+   : '+'
+   ;
+
+op_sub
+    : '-'
+    ;
+
+op_mul
+    : '*'
+    ;
+
+op_div
+    : '/'
+    ;
+
+op_not
+    : '~'
+    ;
+
+op_pow
+    : '^'
+    ;
+
+op_and
+    : '&'
+    ;
+
+op_or
+    : '|'
+    ;
+
+op_doble_backslash
+    : '\\'
+    ;
+
+op_greater
+    : '>'
+    ;
+
+op_less
+    : '<'
+    ;
+
+op_greater_equal
+    : '>='
+    ;
+
+op_less_equal
+    : '<='
+    ;
+
+op_not_equal
+    : '~='
+    ;
+
+op_equal
+    : '='
+    ;
+
 
 multiplicative_expression
    : unary_expression
-   | multiplicative_expression '*' unary_expression
-   | multiplicative_expression '/' unary_expression
-   | multiplicative_expression '\\' unary_expression
-   | multiplicative_expression '^' unary_expression
+   | multiplicative_expression op_mul unary_expression
+   | multiplicative_expression op_div unary_expression
+   | multiplicative_expression op_doble_backslash unary_expression
+   | multiplicative_expression op_pow unary_expression
    | multiplicative_expression ARRAYMUL unary_expression
    | multiplicative_expression ARRAYDIV unary_expression
    | multiplicative_expression ARRAYRDIV unary_expression
@@ -90,14 +179,14 @@ multiplicative_expression
 
 additive_expression
    : multiplicative_expression
-   | additive_expression '+' multiplicative_expression
-   | additive_expression '-' multiplicative_expression
+   | additive_expression op_sum multiplicative_expression
+   | additive_expression op_sub multiplicative_expression
    ;
 
 relational_expression
    : additive_expression
-   | relational_expression '<' additive_expression
-   | relational_expression '>' additive_expression
+   | relational_expression op_less additive_expression
+   | relational_expression op_greater additive_expression
    | relational_expression LE_OP additive_expression
    | relational_expression GE_OP additive_expression
    ;
@@ -110,26 +199,26 @@ equality_expression
 
 and_expression
    : equality_expression
-   | and_expression '&' equality_expression
+   | and_expression op_and equality_expression
    ;
 
 or_expression
    : and_expression
-   | or_expression '|' and_expression
+   | or_expression op_or and_expression
    ;
 
 expression
    : or_expression
-   | expression ':' or_expression
+   | expression colon or_expression
    ;
 
 assignment_expression
-   : postfix_expression '=' expression
+   : postfix_expression op_equal expression
    ;
 
 eostmt
-   : ','
-   | ';'
+   : comma
+   | semicolon
    | CR
    ;
 
@@ -194,8 +283,8 @@ elseif_clause
 
 iteration_statement
    : WHILE expression statement_list END eostmt
-   | FOR IDENTIFIER '=' expression statement_list END eostmt
-   | FOR '(' IDENTIFIER '=' expression ')' statement_list END eostmt
+   | FOR IDENTIFIER op_equal expression statement_list END eostmt
+   | FOR open_par IDENTIFIER op_equal expression close_par statement_list END eostmt
    ;
 
 jump_statement
@@ -210,23 +299,23 @@ translation_unit
 
 func_ident_list
    : IDENTIFIER
-   | func_ident_list ',' IDENTIFIER
+   | func_ident_list comma IDENTIFIER
    ;
 
 func_return_list
    : IDENTIFIER
-   | '[' func_ident_list ']'
+   | open_bracket func_ident_list close_bracket
    ;
 
 function_declare_lhs
    : IDENTIFIER
-   | IDENTIFIER '(' ')'
-   | IDENTIFIER '(' func_ident_list ')'
+   | IDENTIFIER open_par close_par
+   | IDENTIFIER open_par func_ident_list close_par
    ;
 
 function_declare
    : function_declare_lhs
-   | func_return_list '=' function_declare_lhs
+   | func_return_list op_equal function_declare_lhs
    ;
 
 
