@@ -8,7 +8,7 @@ from fastapi import Request
 
 
 app = FastAPI()
-
+BUFFER = ""
 
 @app.get("/")
 async def root():
@@ -21,23 +21,12 @@ async def say_hello(name: str):
 
 @app.post("/trasnlate")
 async def trasnlate(text_input: TextInput):
-  print(text_input.text)
-  lexer = matlabLexer(text_input.text)
-  stream = CommonTokenStream(lexer)
-  parser = matlabParser(stream)
+  lexer = matlabLexer(InputStream(text_input.text))
+  tokens = CommonTokenStream(lexer)
+  parser = matlabParser(tokens)
   tree = parser.file_()
+  lis = Translate()
 
   walker = ParseTreeWalker()
-  listener = Translate()
-  walker.walk(listener, tree)
-
-  return {"message": f"{listener.returnTranslatedCode()}"}
-
-# def read_input(arg):
-#   if len(sys.argv) > 1:
-#     file_input = open(sys.argv[1], "r", encoding="utf8")
-#     code = file_input.readlines()
-#     return InputStream(''.join(code))
-#   else:
-#     code = sys.stdin.readlines()
-#     return InputStream(''.join(code))
+  walker.walk(lis, tree)
+  return {"message": f" recived {lis.returnTranslatedCode()}"}
