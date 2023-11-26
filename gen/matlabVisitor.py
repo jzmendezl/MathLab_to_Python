@@ -294,5 +294,40 @@ class matlabVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by matlabParser#break.
+    def visitBreak(self, ctx:matlabParser.BreakContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by matlabParser#end.
+    def visitEnd(self, ctx:matlabParser.EndContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by matlabParser#if.
+    def visitIf(self, ctx:matlabParser.IfContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by matlabParser#else.
+    def visitElse(self, ctx:matlabParser.ElseContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by matlabParser#elseif.
+    def visitElseif(self, ctx:matlabParser.ElseifContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by matlabParser#eq_op.
+    def visitEq_op(self, ctx:matlabParser.Eq_opContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by matlabParser#ne_op.
+    def visitNe_op(self, ctx:matlabParser.Ne_opContext):
+        return self.visitChildren(ctx)
+
+
 
 del matlabParser

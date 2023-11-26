@@ -193,8 +193,8 @@ relational_expression
 
 equality_expression
    : relational_expression
-   | equality_expression EQ_OP relational_expression
-   | equality_expression NE_OP relational_expression
+   | equality_expression eq_op relational_expression
+   | equality_expression ne_op relational_expression
    ;
 
 and_expression
@@ -270,25 +270,25 @@ array_list
    ;
 
 selection_statement
-   : IF expression statement_list END eostmt
-   | IF expression statement_list ELSE statement_list END eostmt
-   | IF expression statement_list elseif_clause END eostmt
-   | IF expression statement_list elseif_clause ELSE statement_list END eostmt
+   : if expression statement_list end eostmt
+   | if expression statement_list else statement_list end eostmt
+   | if expression statement_list elseif_clause end eostmt
+   | if expression statement_list elseif_clause else statement_list end eostmt
    ;
 
 elseif_clause
-   : ELSEIF expression statement_list
-   | elseif_clause ELSEIF expression statement_list
+   : elseif expression statement_list
+   | elseif_clause elseif expression statement_list
    ;
 
 iteration_statement
-   : WHILE expression statement_list END eostmt
-   | FOR IDENTIFIER op_equal expression statement_list END eostmt
-   | FOR open_par IDENTIFIER op_equal expression close_par statement_list END eostmt
+   : WHILE expression statement_list end eostmt
+   | FOR IDENTIFIER op_equal expression statement_list end eostmt
+   | FOR open_par IDENTIFIER op_equal expression close_par statement_list end eostmt
    ;
 
 jump_statement
-   : BREAK eostmt
+   : break eostmt
    | RETURN eostmt
    ;
 
@@ -339,7 +339,7 @@ ARRAYPOW
    ;
 
 
-BREAK
+break
    : 'break'
    ;
 
@@ -364,7 +364,7 @@ WHILE
    ;
 
 
-END
+end
    : 'end'
    ;
 
@@ -374,7 +374,7 @@ GLOBAL
    ;
 
 
-IF
+if
    : 'if'
    ;
 
@@ -384,12 +384,12 @@ CLEAR
    ;
 
 
-ELSE
+else
    : 'else'
    ;
 
 
-ELSEIF
+elseif
    : 'elseif'
    ;
 
@@ -404,12 +404,12 @@ GE_OP
    ;
 
 
-EQ_OP
+eq_op
    : '=='
    ;
 
 
-NE_OP
+ne_op
    : '~='
    ;
 
@@ -462,3 +462,7 @@ CR
 WS
    : [ \t] + -> skip
    ;
+
+Comments
+    : [/%] .*? [\r\n] -> skip
+    ;

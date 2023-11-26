@@ -521,5 +521,68 @@ class matlabListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by matlabParser#break.
+    def enterBreak(self, ctx:matlabParser.BreakContext):
+        pass
+
+    # Exit a parse tree produced by matlabParser#break.
+    def exitBreak(self, ctx:matlabParser.BreakContext):
+        pass
+
+
+    # Enter a parse tree produced by matlabParser#end.
+    def enterEnd(self, ctx:matlabParser.EndContext):
+        pass
+
+    # Exit a parse tree produced by matlabParser#end.
+    def exitEnd(self, ctx:matlabParser.EndContext):
+        pass
+
+
+    # Enter a parse tree produced by matlabParser#if.
+    def enterIf(self, ctx:matlabParser.IfContext):
+        pass
+
+    # Exit a parse tree produced by matlabParser#if.
+    def exitIf(self, ctx:matlabParser.IfContext):
+        pass
+
+
+    # Enter a parse tree produced by matlabParser#else.
+    def enterElse(self, ctx:matlabParser.ElseContext):
+        pass
+
+    # Exit a parse tree produced by matlabParser#else.
+    def exitElse(self, ctx:matlabParser.ElseContext):
+        pass
+
+
+    # Enter a parse tree produced by matlabParser#elseif.
+    def enterElseif(self, ctx:matlabParser.ElseifContext):
+        pass
+
+    # Exit a parse tree produced by matlabParser#elseif.
+    def exitElseif(self, ctx:matlabParser.ElseifContext):
+        pass
+
+
+    # Enter a parse tree produced by matlabParser#eq_op.
+    def enterEq_op(self, ctx:matlabParser.Eq_opContext):
+        pass
+
+    # Exit a parse tree produced by matlabParser#eq_op.
+    def exitEq_op(self, ctx:matlabParser.Eq_opContext):
+        pass
+
+
+    # Enter a parse tree produced by matlabParser#ne_op.
+    def enterNe_op(self, ctx:matlabParser.Ne_opContext):
+        pass
+
+    # Exit a parse tree produced by matlabParser#ne_op.
+    def exitNe_op(self, ctx:matlabParser.Ne_opContext):
+        pass
+
+
 
 del matlabParser

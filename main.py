@@ -4,11 +4,23 @@ from Models.ModelInput import TextInput
 from gen.matlabLexer import matlabLexer
 from gen.matlabParser import matlabParser
 from Function.Translate import Translate
+from fastapi.middleware.cors import CORSMiddleware
 
 
 
 app = FastAPI()
-BUFFER = ""
+
+origins = [
+    "http://localhost:3000",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @app.get("/")
 async def root():
@@ -29,4 +41,4 @@ async def trasnlate(text_input: TextInput):
 
   walker = ParseTreeWalker()
   walker.walk(lis, tree)
-  return {"message": f" recived {lis.returnTranslatedCode()}"}
+  return {"message": f"{lis.returnTranslatedCode()}"}

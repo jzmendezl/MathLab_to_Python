@@ -25,8 +25,16 @@ class Translate(matlabListener):
   opr = dict()
   whileFlag = False
   forFlag = False
+  ifFlag = False
+  elseFlag = False
   arrayListFlag = False
+  arrayElementFlag = False
+  closeBracketFlag = False
+  funtionFlag = False
+  anyFlag = False
+  posArrayFlag = False
   deep = []
+
 
   def indentation(self):
     return self.indent*"\t"
@@ -42,8 +50,26 @@ class Translate(matlabListener):
     self.program += "\n\n"
     self.program += "if __name__ == \"__main__\":\n"
     self.program += "\tmain()\n"
-
     print(self.program)
+
+  def enterEostmt(self, ctx:matlabParser.EostmtContext):
+    if self.ifFlag:
+      self.program += ":"
+      self.program += "\n"
+      self.indent += 1
+      self.ifFlag = False
+
+    if self.forFlag:
+      self.program += ":"
+      self.program += "\n"
+      self.indent += 1
+      self.forFlag = False
+
+
+
+
+
+
   def enterGlobal_statement(self, ctx:matlabParser.Global_statementContext):
     self.program += self.indentation() + "global "
 
@@ -51,13 +77,19 @@ class Translate(matlabListener):
     self.program += self.indentation() + ctx.getText()
 
   def enterComma(self, ctx:matlabParser.CommaContext):
-    self.program += ", "
+    if self.posArrayFlag:
+      self.program += " : "
+      self.posArrayFlag = False
+    else:
+      self.program += ", "
+
 
   def enterColon(self, ctx:matlabParser.ColonContext):
     self.program += ":"
 
   def enterSemicolon(self, ctx:matlabParser.SemicolonContext):
-    self.program += "\n"
+    if not self.arrayElementFlag:
+      self.program += "\n"
 
   def entertClear_statement(self, ctx:matlabParser.Clear_statementContext):
     self.program += self.indentation() + "clear "
@@ -67,30 +99,46 @@ class Translate(matlabListener):
 
   def enterPrimary_expression(self, ctx:matlabParser.Primary_expressionContext):
     if ctx.IDENTIFIER():
+      # print(ctx.IDENTIFIER().getText())
       if ctx.IDENTIFIER().getText() in self.vars:
-        if self.arrayListFlag:
-          self.program += ", "
         self.program += self.vars[ctx.IDENTIFIER().getText()]
       else:
+        if ctx.IDENTIFIER().getText() == "any":
+          self.anyFlag = True
         self.program += ctx.IDENTIFIER().getText()
     if ctx.CONSTANT():
       self.program += ctx.CONSTANT().getText()
-      if self.arrayListFlag:
-        self.program += ", "
     if ctx.STRING_LITERAL():
       self.program += ctx.STRING_LITERAL().getText()
 
+    if ctx.getChildCount() > 2 and ctx.getChild(2).getText() == "]":
+      self.arrayElementFlag = True
+
   def enterOpen_par(self, ctx:matlabParser.Open_parContext):
-    self.program += "("
+    if self.arrayListFlag:
+      pass
+    else:
+      self.program += "("
 
   def enterClose_par(self, ctx:matlabParser.Close_parContext):
-    self.program += ")"
+    if self.closeBracketFlag:
+      self.program += "]"
+      self.closeBracketFlag = False
+    elif self.anyFlag:
+      # self.program += ""
+      self.anyFlag = False
+    else:
+      self.program += ")"
 
   def enterOpen_bracket(self, ctx:matlabParser.Open_bracketContext):
-    self.program += "["
+    self.program += "np.array([["
+
 
   def enterClose_bracket(self, ctx:matlabParser.Close_bracketContext):
     self.program += "]"
+    if self.arrayElementFlag:
+      self.program += "])"
+      self.arrayElementFlag = False
 
   def enterOp_and(self, ctx:matlabParser.Op_andContext):
     self.program += " and "
@@ -129,40 +177,70 @@ class Translate(matlabListener):
     self.program += " >= "
 
   def enterOp_equal(self, ctx:matlabParser.Op_equalContext):
-    self.program += " = "
+    if self.forFlag:
+      self.program += " in "
+
+    else:
+      self.program += " = "
+
+
+
+  def enterEq_op(self, ctx:matlabParser.Eq_opContext):
+    if self.anyFlag:
+        print("ANY")
+        self.program += ") == "
+        # self.anyFlag = False
+    else:
+      self.program += " == "
+
+  def enterNe_op(self, ctx:matlabParser.Ne_opContext):
+    self.program += " != "
 
   def enterArray_expression(self, ctx:matlabParser.Array_expressionContext):
-    self.program += self.indentation()
     if ctx.IDENTIFIER():
       if ctx.IDENTIFIER().getText() in self.vars:
-        if self.arrayListFlag:
-          self.program += ", "
-        self.program += self.vars[ctx.IDENTIFIER().getText()]
+        self.program += self.indentation() + self.vars[ctx.IDENTIFIER().getText()]
+        self.funtionFlag = True
       else:
         self.program += ctx.IDENTIFIER().getText()
 
-  def enterArray_list(self, ctx:matlabParser.Array_listContext):
-    self.arrayListFlag = True
-    self.deep.append(ctx.depth())
+    if ctx.getChild(1).getText() == "(" and not self.funtionFlag:
+      self.arrayListFlag = True
+      self.program += "["
 
-  def exitArray_list(self, ctx:matlabParser.Array_listContext):
-    if ctx.depth() == min(self.deep):
-      self.arrayListFlag = False
+    if ctx.getChild(3).getText() == ")" and not self.funtionFlag:
+      self.closeBracketFlag = True
 
 
-  def enterSelection_statement(self, ctx:matlabParser.Selection_statementContext):
-    if ctx.IF():
-      self.program += self.indentation() + "if "
-    if ctx.ELSE():
-      self.program += self.indentation() + "else "
+  def enterArray_element(self, ctx:matlabParser.Array_elementContext):
+    if ctx.getChild(-1).getText() == ";":
+      self.program += "], ["
+      self.arrayElementFlag = True
+    else:
+      if self.program[-1] == "[":
+        self.program += ""
+      else:
+        self.program += ", "
 
-    if ctx.END():
-      self.indent -= 1
-      self.program += "\n"
+  def enterIf(self, ctx:matlabParser.IfContext):
+    self.program += self.indentation() + "if "
+    self.ifFlag = True
 
-  def enterElseif_clause(self, ctx:matlabParser.Elseif_clauseContext):
+  def enterElse(self, ctx:matlabParser.ElseContext):
+    self.indent -= 1
+    self.program += "\n"
+    self.program += self.indentation() + "else:"
+    self.program += "\n"
+    self.indent += 1
+    self.elseFlag = True
+
+
+
+  def enterElseif(self, ctx:matlabParser.ElseifContext):
+    self.indent -= 1
+    self.program += "\n"
     self.program += self.indentation() + "elif "
-
+    self.ifFlag = True
   def enterIteration_statement(self, ctx:matlabParser.Iteration_statementContext):
     if ctx.WHILE():
       self.program += "\n"
@@ -170,13 +248,38 @@ class Translate(matlabListener):
       self.whileFlag = True
     if ctx.FOR():
       self.program += self.indentation() + "for "
+      self.forFlag = True
+
+    if ctx.IDENTIFIER():
+      self.program += ctx.IDENTIFIER().getText()
 
   def exitIteration_statement(self, ctx:matlabParser.Iteration_statementContext):
-    if ctx.END():
+    if ctx.end():
       self.whileFlag = False
       self.indent -= 1
       self.program += "\n"
 
+  def enterBreak(self, ctx:matlabParser.BreakContext):
+    self.program += self.indentation() + "break"
+    self.program += "\n"
+    self.indent -= 1
+
+  def enterEnd(self, ctx:matlabParser.EndContext):
+    if self.ifFlag:
+      print("END IF")
+
+      # self.program += "\n"
+      self.indent -= 1
+      self.ifFlag = False
+
+    if self.elseFlag:
+      self.indent -= 1
+      self.elseFlag = False
+
+
+  def enterIndex_expression_list(self, ctx:matlabParser.Index_expression_listContext):
+    if ctx.comma():
+      self.posArrayFlag = True
 
 
 
@@ -187,14 +290,6 @@ class Translate(matlabListener):
       self.program += "\n"
       self.indent += 1
       self.whileFlag = False
-
-    if self.forFlag:
-      self.program += ":"
-      self.forFlag = False
-
-
-
-
 
 
 
