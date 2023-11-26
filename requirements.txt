@@ -1,2 +1,5 @@
 pydantic~=2.5.2
 fastapi~=0.104.1
+uvicorn~=0.24.0.post1
+antlr4-python3-runtime~=4.13.1
+numpy
