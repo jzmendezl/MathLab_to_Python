@@ -6,8 +6,6 @@ from gen.matlabParser import matlabParser
 from Function.Translate import Translate
 from fastapi.middleware.cors import CORSMiddleware
 
-
-
 app = FastAPI()
 
 origins = [
@@ -22,23 +20,25 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
 @app.get("/")
 async def root():
-  return {"message": "Hello World"}
+    return {"message": "Hello World"}
 
 
 @app.get("/hello/{name}")
 async def say_hello(name: str):
-  return {"message": f"Hello {name}"}
+    return {"message": f"Hello {name}"}
 
-@app.post("/trasnlate")
-async def trasnlate(text_input: TextInput):
-  lexer = matlabLexer(InputStream(text_input.text))
-  tokens = CommonTokenStream(lexer)
-  parser = matlabParser(tokens)
-  tree = parser.file_()
-  lis = Translate()
 
-  walker = ParseTreeWalker()
-  walker.walk(lis, tree)
-  return {"message": f"{lis.returnTranslatedCode()}"}
+@app.post("/translate")
+async def translate(text_input: TextInput):
+    lexer = matlabLexer(InputStream(text_input.text))
+    tokens = CommonTokenStream(lexer)
+    parser = matlabParser(tokens)
+    tree = parser.file_()
+    lis = Translate()
+
+    walker = ParseTreeWalker()
+    walker.walk(lis, tree)
+    return {"message": f"{lis.returnTranslatedCode()}"}
