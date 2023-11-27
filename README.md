@@ -44,6 +44,6 @@ python.exe -m uvicorn main:app --reload
 
 #### Integrantes
 
-*Joe Zafir Méndez León
-*Juan Diego Cortés Garzón
-*Juan Pablo Garzon Parra
+* Joe Zafir Méndez León
+* Juan Diego Cortés Garzón
+* Juan Pablo Garzon Parra
