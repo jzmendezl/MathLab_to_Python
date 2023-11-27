@@ -101,7 +101,7 @@ class Translate(matlabListener):
     if ctx.IDENTIFIER():
       # print(ctx.IDENTIFIER().getText())
       if ctx.IDENTIFIER().getText() in self.vars:
-        self.program += self.vars[ctx.IDENTIFIER().getText()]
+        self.program += self.indentation() + self.vars[ctx.IDENTIFIER().getText()]
       else:
         if ctx.IDENTIFIER().getText() == "any":
           self.anyFlag = True
@@ -241,6 +241,7 @@ class Translate(matlabListener):
     self.program += "\n"
     self.program += self.indentation() + "elif "
     self.ifFlag = True
+
   def enterIteration_statement(self, ctx:matlabParser.Iteration_statementContext):
     if ctx.WHILE():
       self.program += "\n"
